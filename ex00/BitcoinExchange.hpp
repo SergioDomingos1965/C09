@@ -4,7 +4,8 @@
 #include <map>
 #include <string>
 
-class BitcoinExchange {
+class BitcoinExchange 
+{
 private:
   std::map<std::string, double> _database;
   void loadDatabase();

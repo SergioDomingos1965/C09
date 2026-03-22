@@ -4,10 +4,12 @@
 #include <vector>
 #include <cstdlib>
 #include <string>
+#include <deque>
 class Pmerge
 {
     private:
         std::vector<int> vect;
+        std::deque<int> dequ;
     public:
         Pmerge();
         Pmerge(const Pmerge &src);

@@ -42,9 +42,11 @@ int Pmerge::parser_input(int ac, char **av)
                 std::cout <<"aquii"<<std::endl;
                 return (1);
             }
-            vect.push_back(atoi(av[i][j]));
             j++;
         }
+            vect.push_back(atoi(av[i]));
+            
+            std::cout <<"===> "<<av[i]<<std::endl;
         i++;
     }
     return 0;

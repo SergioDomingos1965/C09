@@ -1,16 +1,32 @@
 #include <iostream>
 #include "PmergeMe.hpp"
+
 int main(int ac, char **av)
 {
-    if(ac < 2)
+    if (ac < 2)
     {
-        std::cout <<"Error: "<<std::endl;
-        return (0);
+        std::cout << "Error" << std::endl;
+        return 1;
     }
-    Pmerge merge;
-    if(merge.parser_input(ac, av) == 1)
+
+    try
     {
-        std::cout <<"OK"<<std::endl;
+        Pmerge p;
+
+        p.parser_input(ac, av);
+
+        std::cout << "Before: ";
+        p.print_vector();
+
+        p.process();
+
+        std::cout << "After:  ";
+        p.print_vector();
+
+        p.print_time();
     }
-    return (0);
+    catch (...)
+    {
+        std::cout << "Error" << std::endl;
+    }
 }

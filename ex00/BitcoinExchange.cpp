@@ -48,10 +48,12 @@ bool BitcoinExchange::validDate(const std::string &date) {
   int year = std::atoi(date.substr(0, 4).c_str());
   int month = std::atoi(date.substr(5, 2).c_str());
   int day = std::atoi(date.substr(8, 2).c_str());
+  int f =  std::atoi(date.substr(5, 2).c_str());
 
   if (month < 1 || month > 12)
     return false;
-
+  if(f == 2 && day > 28)
+    return false;
   if (day < 1 || day > 31)
     return false;
 
@@ -83,7 +85,8 @@ void BitcoinExchange::processInput(const std::string &filename) {
 
   std::string line;
   std::getline(file, line);
-
+  if(line.find("date | value") == std::string::npos)
+      throw std::runtime_error("Bad file");
   while (std::getline(file, line)) {
     std::stringstream ss(line);
     std::string date;

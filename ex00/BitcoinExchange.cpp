@@ -78,6 +78,23 @@ double BitcoinExchange::getRate(const std::string &date) {
   return it->second;
 }
 
+bool BitcoinExchange::is_space(const std::string &str)
+{
+    size_t start = 0;
+    size_t end = str.length();
+
+    while(start < end && isspace(str[start]))
+      start++;
+    while(end > start && isspace(str[start]))
+      end--;
+    while(start < end)
+    {
+        if(isspace(str[start]))
+          return true;
+      start++;
+    }
+    return false;
+}
 void BitcoinExchange::processInput(const std::string &filename) {
   std::ifstream file(filename.c_str());
   if (!file)
@@ -102,12 +119,15 @@ void BitcoinExchange::processInput(const std::string &filename) {
 
     while (valueStr[0] == ' ')
       valueStr.erase(0, 1);
-
     if (!validDate(date)) {
       std::cout << "Error: bad input => " << line << std::endl;
       continue;
     }
-
+    if(is_space(valueStr))
+    {
+      std::cout << "Error: invalid number." << std::endl;
+      continue;
+    }
     double value = std::atof(valueStr.c_str());
 
     if (value < 0) {

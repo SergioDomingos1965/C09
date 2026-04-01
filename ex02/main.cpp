@@ -1,32 +1,32 @@
-#include <iostream>
 #include "PmergeMe.hpp"
+#include <iostream>
 
-int main(int ac, char **av)
-{
-    if (ac < 2)
-    {
-        std::cout << "Error" << std::endl;
-        return 1;
-    }
+int main(int ac, char **av) {
+  if (ac < 2) {
+    std::cerr << "Error" << std::endl;
+    return 1;
+  }
 
-    try
-    {
-        Pmerge p;
+  try {
+    Pmerge p;
+    p.parser_input(ac, av);
+    p.insert_data(av, ac);
 
-        p.parser_input(ac, av);
+    std::cout << "Before: ";
+    p.print_before();
 
-        std::cout << "Before: ";
-        p.print_vector();
+    p.process();
 
-        p.process();
+    std::cout << "After: ";
+    p.print_after();
 
-        std::cout << "After:  ";
-        p.print_deque();
-
-        p.print_time();
-    }
-    catch (...)
-    {
-        std::cout << "Error" << std::endl;
-    }
+    p.print_time();
+  } catch (const std::exception &e) {
+    std::cerr << "Error" << std::endl;
+    return 1;
+  } catch (...) {
+    std::cerr << "Error" << std::endl;
+    return 1;
+  }
+  return 0;
 }
